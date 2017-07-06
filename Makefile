@@ -146,12 +146,15 @@ pf-rm: wait-for-pod-yarn-rm-0
 pf-zeppelin: wait-for-pod-zeppelin-0
 	$(KUBECTL) port-forward zeppelin-0 8081:8080 2>/dev/null &
 
-pf: pf-rm pf-zeppelin
+pf-nn: wait-for-pod-hdfs-nn-0
+	$(KUBECTL) port-forward hdfs-nn-0 9000:9000 2>/dev/null &
+
+pf: pf-rm pf-zeppelin pf-nn pf-nn
 
 delete-%-pf: kubectl
 	-pkill -f "kubectl.*port-forward.*$*.*"
 
-delete-pf: kubectl delete-zeppelin-pf delete-yarn-rm-pf
+delete-pf: kubectl delete-zeppelin-pf delete-yarn-rm-pf delete-hdfs-nn-pf
 
 HADOOP_VERSION=$(shell grep "image: " manifests/yarn-rm-statefulset.yaml|cut -d'/' -f2|cut -d ':' -f2)
 test: wait-for-pod-yarn-nm-0

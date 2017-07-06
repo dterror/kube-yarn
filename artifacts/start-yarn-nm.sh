@@ -27,9 +27,6 @@ DEFAULT_LIBEXEC_DIR="$bin"/../libexec
 HADOOP_LIBEXEC_DIR=${HADOOP_LIBEXEC_DIR:-$DEFAULT_LIBEXEC_DIR}
 . $HADOOP_LIBEXEC_DIR/yarn-config.sh
 
-# start resourceManager
-# "$bin"/yarn-daemon.sh --config $YARN_CONF_DIR  start resourcemanager
+
 # start nodeManager
 "$bin"/yarn-daemon.sh --config $YARN_CONF_DIR  start nodemanager
-# start proxyserver
-#"$bin"/yarn-daemon.sh --config $YARN_CONF_DIR  start proxyserver

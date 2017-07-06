@@ -12,7 +12,6 @@ spec:
     port: 9000
     protocol: TCP
   # *.hdfs-nn.yarn-cluster.svc.cluster.local
-  clusterIP: None
   selector:
     component: hdfs-nn
 ---
@@ -31,7 +30,7 @@ spec:
       terminationGracePeriodSeconds: 0
       containers:
       - name: hdfs-nn
-        image: danisla/hadoop:2.7.2
+        image: sequenceiq/hadoop-docker:2.7.0
         command:
            - "/bin/bash"
            - "/tmp/hadoop-config/bootstrap.sh"

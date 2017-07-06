@@ -12,17 +12,20 @@ DOCKER_REPO = danisla/hadoop
 all: build
 
 ### Build hadoop 2.6 and 2.7 images with native libs.
-build: build-$(HADOOP_26_VERSION) build-$(HADOOP_27_VERSION)
+#build: build-$(HADOOP_26_VERSION) build-$(HADOOP_27_VERSION)
+build: build-$(HADOOP_27_VERSION)
 build-%: hadoop-native-%.tar
 	$(DOCKER) build -t hadoop:$* \
 	--build-arg HADOOP_VERSION=$* \
 	.
 
-tag: tag-$(HADOOP_26_VERSION) tag-$(HADOOP_27_VERSION)
+#tag: tag-$(HADOOP_26_VERSION) tag-$(HADOOP_27_VERSION)
+tag: tag-$(HADOOP_27_VERSION)
 tag-%:
 	$(DOCKER) tag hadoop:$* $(DOCKER_REPO):$*
 
-push: push-$(HADOOP_26_VERSION) push-$(HADOOP_27_VERSION)
+#push: push-$(HADOOP_26_VERSION) push-$(HADOOP_27_VERSION)
+push: push-$(HADOOP_27_VERSION)
 push-%:
 	$(DOCKER) push $(DOCKER_REPO):$*
 
@@ -42,7 +45,7 @@ hadoop-%.tar.gz:
 
 ### Fetch protobuf source
 protobuf-%.tar.bz2:
-	curl -LO https://protobuf.googlecode.com/files/protobuf-$*.tar.bz2
+	curl -LO https://github.com/google/protobuf/releases/download/v$*/protobuf-$*.tar.bz2
 
 # Keep intermediate downloads.
 .PRECIOUS: protobuf-%.tar.bz2 hadoop-%-src.tar.gz hadoop-%.tar.gz

@@ -53,7 +53,7 @@ spec:
             cpu: "2000m"
         volumeMounts:
           - name: hadoop-config
-            mountPath: /usr/hadoop-2.7.2/etc/hadoop
+            mountPath: /usr/hadoop-2.7.3/etc/hadoop
       volumes:
         - name: hadoop-config
           configMap:
